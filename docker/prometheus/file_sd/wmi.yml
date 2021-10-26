@@ -1,0 +1,20 @@
+groups:
+- name: gz_windows_server
+  rules:
+
+  - alert: WinHostOutOfMemory
+    expr: wmi_os_physical_memory_free_bytes{job=”wmi_exporter”} / wmi_cs_physical_memory_bytes{job=”wmi_exporter”} < 0.1
+    labels:
+    severity: warning
+    annotations:
+    ummary: “Windows Host out of memory (instance {{ $labels.instance }})”
+    description: "Node memory is filling up (< 10% left)\n VALUE = {{ $value }}\n LABELS: {{ $labels }}"
+    
+  - alert: WinHostCpuUsage
+    expr: 100 — (avg by (instance) (irate(wmi_cpu_time_total{job=”wmi_exporter”,mode=”idle”}[2m])) * 100) > 80
+    for: 10m
+    labels:
+    severity: warning
+    annotations:
+    summary: “CPU Usage (instance {{ $labels.instance }})”
+    description: "CPU Usage is more than 80%\n VALUE = {{ $value }}\n LABELS: {{ $labels }}"

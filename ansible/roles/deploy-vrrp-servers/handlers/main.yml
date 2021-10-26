@@ -1,0 +1,7 @@
+---
+# handlers file for deploy-vrrp-servers
+
+- name: Restart keepalived
+  service: 
+    name: keepalived
+    state: restarted

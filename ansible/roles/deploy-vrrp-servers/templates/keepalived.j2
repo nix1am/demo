@@ -1,0 +1,20 @@
+vrrp_sync_group VG1 {
+group {
+VRRP_Inst
+}
+}
+
+vrrp_instance VRRP_Inst {
+  state {{ vrrp_state }}
+  interface {{ ansible_default_ipv4.interface }}
+  virtual_router_id 10
+  priority {{vrrp_priority}}
+  advert_int 1
+  authentication {
+    auth_type PASS
+    auth_pass {{VRRP_AUTH_PASS}}
+  }
+  virtual_ipaddress {
+    192.168.19.252/23 dev {{ ansible_default_ipv4.interface }}
+  }
+}

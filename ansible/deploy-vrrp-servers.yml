@@ -1,0 +1,7 @@
+- name: install and configure vrrp instance
+  hosts: "{{ RUN_AT }}"
+  become: yes
+  ignore_errors: yes
+
+  roles:
+    - { role: deploy-vrrp-servers, when: ansible_system == 'Linux' }

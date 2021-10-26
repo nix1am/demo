@@ -1,0 +1,12 @@
+#Linux servers
+[new_linux_servers]
+
+[vrrp_servers]
+vrrp_master ansible_ssh_host=192.168.19.253 vrrp_state=MASTER vrrp_priority=250
+vrrp_slave ansible_ssh_host=192.168.18.2 vrrp_state=BACKUP vrrp_priority=150
+
+[linux_servers]
+
+
+[linux_servers:children]
+vrrp_servers

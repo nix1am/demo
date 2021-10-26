@@ -1,0 +1,14 @@
+scrape_configs:
+  - job_name: servers
+    scrape_interval: 10s
+    static_configs:
+    - targets: ['node-exporter:9100']
+    - targets: ['192.168.19.1:9100']
+    - targets: ['192.168.10.4:9182']
+    - targets: ['192.168.18.99:9100']
+    - targets: ['192.168.18.100:9100']
+
+file_sd_configs:
+      - refresh_interval: 10s
+      - files:
+          - /etc/prometheus/file_sd/wmi.yml

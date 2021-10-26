@@ -1,0 +1,32 @@
+---
+# tasks file for deploy-vrrp-servers
+
+- name: Update and upgrade apt packages
+  apt:
+    update_cache: yes
+    cache_valid_time: 86400
+
+- name: Install keepalived
+  apt:
+    name: keepalived
+    state: present
+  
+- name: Generate config file 
+  template: 
+    src: "keepalived.j2"
+    dest: "{{destination_dir}}/keepalived.conf"
+    mode: 0644
+  notify: Restart keepalived
+  
+- name: Show configs
+  shell: cat "{{destination_dir}}/keepalived.conf"
+  register: results
+
+- debug:
+    var: results
+
+- name: Start and Enable service
+  service: 
+    name: keepalived
+    state: started
+    enabled: yes
