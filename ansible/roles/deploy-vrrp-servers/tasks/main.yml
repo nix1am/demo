@@ -18,7 +18,7 @@
     mode: 0644
   notify: Restart keepalived
   
-- name: Show configs
+- name: Show configs for Demo on GitHub
   shell: cat "{{destination_dir}}/keepalived.conf"
   register: results
 
