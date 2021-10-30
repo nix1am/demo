@@ -1,3 +1,0 @@
-# HELP zzz_cpu_load Metric read from /tmp/zzz_cpu_load.prom
-# TYPE zzz_cpu_load gauge
-zzz_cpu_load 0.23
