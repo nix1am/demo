@@ -1,0 +1,19 @@
+version: '3.2'
+services:
+    cockpit:
+        image: nix1am/cockpit:v1
+        build:
+          context: .
+          dockerfile: Dockerfile
+        container_name: cockpit
+        volumes:
+          - ./cockpit.conf:/etc/cockpit/cockpit.conf
+        ports: 
+          - 9090:9090
+        privileged: true
+        cap_add:
+          - CAP_SYS_ADMIN
+        command: bash -c "
+            systemctl start cockpit.socket
+            && systemctl status cockpit.socket
+          "
